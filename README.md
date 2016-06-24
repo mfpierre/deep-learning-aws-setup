@@ -14,7 +14,7 @@ sudo apt-get install build-essential cmake g++ gfortran git pkg-config python-de
 
 ## Nvidia Drivers
 
-Installation
+Install the Nvidia driver
 
 ```bash
 sudo add-apt-repository ppa:graphics-drivers/ppa
@@ -38,3 +38,30 @@ wget http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers
 sudo sh cuda_7.5.18_linux.run
 ```
 :warning: When asked don't install the driver bundled with CUDA (it's an older version), make sure to install the examples also to check later if everything is alright
+
+You can check CUDA is correctly installed
+```
+nvcc -V
+```
+
+> nvcc: NVIDIA (R) Cuda compiler driver
+
+> Copyright (c) 2005-2015 NVIDIA Corporation
+
+> Built on Tue_Aug_11_14:27:32_CDT_2015
+
+> Cuda compilation tools, release 7.5, V7.5.17
+
+Restart the instance
+```
+shutdown -r now
+```
+
+Compile & check the example
+```
+cd ~/NVIDIA_CUDA-7.5_Samples/
+make -j $(($(nproc) + 1))
+bin/x86_64/linux/release/deviceQuery
+```
+
+> Detected 1 CUDA Capable device(s)

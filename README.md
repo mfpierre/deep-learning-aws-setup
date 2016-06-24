@@ -39,6 +39,14 @@ sudo sh cuda_7.5.18_linux.run
 ```
 :warning: When asked don't install the driver bundled with CUDA (it's an older version), make sure to install the examples also to check later if everything is alright
 
+Add CUDA to the environment variables
+
+```
+echo 'export PATH=/usr/local/cuda/bin:$PATH' >> ~/.bashrc
+echo 'export LD_LIBRARY_PATH=/usr/local/cuda/lib64:$LD_LIBRARY_PATH' >> ~/.bashrc
+source ~/.bashrc
+```
+
 You can check CUDA is correctly installed
 ```
 nvcc -V
@@ -65,3 +73,38 @@ bin/x86_64/linux/release/deviceQuery
 ```
 
 > Detected 1 CUDA Capable device(s)
+
+## Install CuDNN
+
+To be able to download the cuDNN library, you need to register in the Nvidia website at https://developer.nvidia.com/cudnn
+
+Once you have your account you can download the `cuDNN v5 Library for Linux` and SCP it to your aws instance
+
+```
+tar xvf cudnn-7.5-linux-x64-v5.0-ga.tgz
+cd cuda
+sudo cp */*.h /usr/local/cuda/include/
+sudo cp */libcudnn* /usr/local/cuda/lib64/
+sudo chmod a+r /usr/local/cuda/lib64/libcudnn*
+```
+
+You can check with `nvidia-smi` that everything is working:
+```
+Fri Jun 24 17:07:53 2016
++------------------------------------------------------+
+| NVIDIA-SMI 364.19     Driver Version: 364.19         |
+|-------------------------------+----------------------+----------------------+
+| GPU  Name        Persistence-M| Bus-Id        Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp  Perf  Pwr:Usage/Cap|         Memory-Usage | GPU-Util  Compute M. |
+|===============================+======================+======================|
+|   0  GRID K520           Off  | 0000:00:03.0     Off |                  N/A |
+| N/A   29C    P0     1W / 125W |     11MiB /  4095MiB |      0%      Default |
++-------------------------------+----------------------+----------------------+
+
++-----------------------------------------------------------------------------+
+| Processes:                                                       GPU Memory |
+|  GPU       PID  Type  Process name                               Usage      |
+|=============================================================================|
+|  No running processes found                                                 |
++-----------------------------------------------------------------------------+
+```

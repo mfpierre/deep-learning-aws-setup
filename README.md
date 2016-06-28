@@ -69,7 +69,7 @@ Compile & check the example
 ```
 cd ~/NVIDIA_CUDA-7.5_Samples/
 make -j $(($(nproc) + 1))
-bin/x86_64/linux/release/deviceQuery
+sudo bin/x86_64/linux/release/deviceQuery
 ```
 
 > Detected 1 CUDA Capable device(s)
@@ -88,7 +88,7 @@ sudo cp */libcudnn* /usr/local/cuda/lib64/
 sudo chmod a+r /usr/local/cuda/lib64/libcudnn*
 ```
 
-You can check with `nvidia-smi` that everything is working:
+You can check with `sudo nvidia-smi` that everything is working:
 ```
 Fri Jun 24 17:07:53 2016
 +------------------------------------------------------+
